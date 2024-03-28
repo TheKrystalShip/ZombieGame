@@ -1,14 +1,15 @@
 #pragma once
 
+#include "Bullet.h"
 #include "Level.h"
 #include "Player.h"
-#include "Bullet.h"
 
-#include <Window.h>
-#include <GLSLProgram.h>
 #include <Camera2D.h>
-#include <SpriteBatch.h>
+#include <GLSLProgram.h>
 #include <InputManager.h>
+#include <SpriteBatch.h>
+#include <SpriteFont.h>
+#include <Window.h>
 
 #include <vector>
 
@@ -40,6 +41,7 @@ namespace TKSZG
         void checkVictory();
         void processInput();
         void drawGame();
+        void drawHud();
 
         int _windowWidth;
         int _windowHeight;
@@ -49,6 +51,8 @@ namespace TKSZG
         Toaster::InputManager _inputManager;
         Toaster::Camera2D _camera;
         Toaster::SpriteBatch _agentSpriteBatch;
+        Toaster::SpriteBatch _hudSpriteBatch;
+        Toaster::SpriteFont *_spriteFont;
         std::vector<Level *> _levels;
         Player *_player;
         std::vector<Human *> _humans;

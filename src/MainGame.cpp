@@ -27,8 +27,7 @@ namespace TKSZG
                            _fps(60.0f),
                            _currentLevel(0),
                            _humansKilled(0),
-                           _zombiesKilled(0),
-                           _inputManager()
+                           _zombiesKilled(0)
     {
     }
 
@@ -62,6 +61,9 @@ namespace TKSZG
         initShaders();
 
         _agentSpriteBatch.init();
+        _hudSpriteBatch.init();
+
+        _spriteFont = new Toaster::SpriteFont("assets/fonts/stocky.ttf", 32);
 
         _camera.init(_windowWidth, _windowHeight);
     }
@@ -403,7 +405,24 @@ namespace TKSZG
 
         _agentSpriteBatch.renderBatch();
 
+        drawHud();
+
         _textureProgram.unbind();
         _window.swapBuffer();
+    }
+
+    void MainGame::drawHud()
+    {
+        char buffer[256];
+        _hudSpriteBatch.begin();
+
+        std::snprintf(buffer, sizeof(buffer), "Num Humans %d", _humans.size());
+        _spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(300, 300),
+                        glm::vec2(10.0), 0.0f, Toaster::ColorRGBA8(0, 0, 255, 255));
+
+
+
+        _hudSpriteBatch.end();
+        _hudSpriteBatch.renderBatch();
     }
 }
