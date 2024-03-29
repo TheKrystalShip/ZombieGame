@@ -1,18 +1,18 @@
 #include "MainGame.h"
+#include "Gun.h"
 #include "Human.h"
 #include "Player.h"
 #include "Zombie.h"
-#include "Gun.h"
 
-#include <Toaster.h>
-#include <Timing.h>
 #include <Errors.h>
+#include <Timing.h>
+#include <Toaster.h>
 
 #include <SDL2/SDL.h>
 
-#include <random>
 #include <ctime>
 #include <iostream>
+#include <random>
 
 namespace TKSZG
 {
@@ -63,9 +63,11 @@ namespace TKSZG
         _agentSpriteBatch.init();
         _hudSpriteBatch.init();
 
-        _spriteFont = new Toaster::SpriteFont("assets/fonts/stocky.ttf", 32);
+        _spriteFont = new Toaster::SpriteFont("assets/fonts/chintzy.ttf", 256);
 
         _camera.init(_windowWidth, _windowHeight);
+        _hudCamera.init(_windowWidth, _windowHeight);
+        _hudCamera.setPosition(glm::vec2(_windowWidth / 2.0f, _windowHeight / 2.0f));
     }
 
     void MainGame::initLevel()
@@ -161,6 +163,7 @@ namespace TKSZG
 
             _camera.setPosition(_player->getPosition());
             _camera.update();
+            _hudCamera.update();
 
             drawGame();
 
@@ -414,13 +417,21 @@ namespace TKSZG
     void MainGame::drawHud()
     {
         char buffer[256];
+
+        // Grab the camera matrix
+        glm::mat4 projectionMatrix = _hudCamera.getCameraMatrix();
+        GLint pUniform = _textureProgram.getUniformLocation("P");
+        glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
+
         _hudSpriteBatch.begin();
 
-        std::snprintf(buffer, sizeof(buffer), "Num Humans %d", _humans.size());
-        _spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(300, 300),
-                        glm::vec2(10.0), 0.0f, Toaster::ColorRGBA8(0, 0, 255, 255));
+        std::snprintf(buffer, sizeof(buffer), "Num Humans %zu", _humans.size());
+        _spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(0, 0),
+                          glm::vec2(0.25f), 0.0f, Toaster::ColorRGBA8(255, 0, 255, 128));
 
-
+        std::snprintf(buffer, sizeof(buffer), "Num Zombies %zu", _zombies.size());
+        _spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(0, 256 * 0.25f + 32),
+                          glm::vec2(0.25f), 0.0f, Toaster::ColorRGBA8(0, 255, 0, 128));
 
         _hudSpriteBatch.end();
         _hudSpriteBatch.renderBatch();

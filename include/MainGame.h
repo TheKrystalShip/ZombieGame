@@ -50,6 +50,7 @@ namespace TKSZG
         Toaster::GLSLProgram _textureProgram;
         Toaster::InputManager _inputManager;
         Toaster::Camera2D _camera;
+        Toaster::Camera2D _hudCamera;
         Toaster::SpriteBatch _agentSpriteBatch;
         Toaster::SpriteBatch _hudSpriteBatch;
         Toaster::SpriteFont *_spriteFont;
