@@ -2,6 +2,8 @@
 
 #include "Bullet.h"
 
+#include <AudioEngine.h>
+
 #include <GLM/glm.hpp>
 
 #include <vector>
@@ -12,7 +14,7 @@ namespace TKSZG
     class Gun
     {
     public:
-        Gun(std::string name, int fireRate, int bulletsPerShot, float spread, float bulletDamage, float bulletSpeed);
+        Gun(std::string name, int fireRate, int bulletsPerShot, float spread, float bulletDamage, float bulletSpeed, Toaster::SoundEffect fireEffect);
         ~Gun();
 
         void update(bool isMouseDown, const glm::vec2 &position, const glm::vec2 &direction, std::vector<Bullet> &bullets, float deltaTime);
@@ -29,5 +31,7 @@ namespace TKSZG
         float _bulletSpeed;
 
         float _frameCounter;
+
+        Toaster::SoundEffect _fireEffect;
     };
 }

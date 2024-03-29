@@ -47,12 +47,18 @@ namespace TKSZG
     {
         initSystems();
         initLevel();
+
+        Toaster::Music music = _audioEngine.loadMusic("assets/sound/XYZ.ogg");
+        music.play(-1);
+
         gameLoop();
     }
 
     void MainGame::initSystems()
     {
         Toaster::init();
+
+        _audioEngine.init();
 
         _window.setVsync(true);
         _window.create("ZombieGame", _windowWidth, _windowHeight);
@@ -102,9 +108,9 @@ namespace TKSZG
 
         // Give player some guns
         const float BULLET_SPEED = 20.0f;
-        _player->addGun(new Gun("Magnum", 10, 1, 5.0f, 30.0f, BULLET_SPEED));
-        _player->addGun(new Gun("Shotgun", 30, 12, 20.0f, 25.0f, BULLET_SPEED));
-        _player->addGun(new Gun("MP5", 3, 1, 10.0f, 10.0f, BULLET_SPEED));
+        _player->addGun(new Gun("Magnum", 10, 1, 5.0f, 30.0f, BULLET_SPEED, _audioEngine.loadSoundEffect("assets/sound/pistol.wav")));
+        _player->addGun(new Gun("Shotgun", 30, 12, 20.0f, 25.0f, BULLET_SPEED, _audioEngine.loadSoundEffect("assets/sound/shotgun.wav")));
+        _player->addGun(new Gun("MP5", 3, 1, 10.0f, 10.0f, BULLET_SPEED, _audioEngine.loadSoundEffect("assets/sound/cg1.wav")));
     }
 
     void MainGame::initShaders()

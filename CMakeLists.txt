@@ -10,6 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 
@@ -26,8 +27,8 @@ set(SOURCES src/main.cpp
 
 add_executable(zombie ${SOURCES})
 
-target_include_directories(zombie PUBLIC include ${TOASTER_INCLUDES} ${SDL2_ttf_INCLUDE_DIR})
-target_link_libraries(zombie toaster ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} SDL2_ttf::SDL2_ttf)
+target_include_directories(zombie PUBLIC include ${TOASTER_INCLUDES} ${SDL2_ttf_INCLUDE_DIR} ${SDL2_mixer_INCLUDE_DIRS})
+target_link_libraries(zombie toaster ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} SDL2_ttf::SDL2_ttf SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
 
 install(TARGETS zombie RUNTIME DESTINATION bin)
 

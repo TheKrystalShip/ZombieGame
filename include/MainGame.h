@@ -10,6 +10,7 @@
 #include <SpriteBatch.h>
 #include <SpriteFont.h>
 #include <Window.h>
+#include <AudioEngine.h>
 
 #include <vector>
 
@@ -54,6 +55,7 @@ namespace TKSZG
         Toaster::SpriteBatch _agentSpriteBatch;
         Toaster::SpriteBatch _hudSpriteBatch;
         Toaster::SpriteFont *_spriteFont;
+        Toaster::AudioEngine _audioEngine;
         std::vector<Level *> _levels;
         Player *_player;
         std::vector<Human *> _humans;

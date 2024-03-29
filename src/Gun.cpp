@@ -3,18 +3,20 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <GLM/gtx/rotate_vector.hpp>
 
-#include <random>
 #include <ctime>
+#include <random>
 
 namespace TKSZG
 {
-    Gun::Gun(std::string name, int fireRate, int bulletsPerShot, float spread, float bulletDamage, float bulletSpeed) : _name(name),
-                                                                                                                        _fireRate(fireRate),
-                                                                                                                        _bulletsPerShot(bulletsPerShot),
-                                                                                                                        _spread(spread),
-                                                                                                                        _bulletDamage(bulletDamage),
-                                                                                                                        _bulletSpeed(bulletSpeed),
-                                                                                                                        _frameCounter(0.0f)
+    Gun::Gun(std::string name, int fireRate, int bulletsPerShot,
+             float spread, float bulletDamage, float bulletSpeed, Toaster::SoundEffect fireEffect) : _name(name),
+                                                                                                     _fireRate(fireRate),
+                                                                                                     _bulletsPerShot(bulletsPerShot),
+                                                                                                     _spread(spread),
+                                                                                                     _bulletDamage(bulletDamage),
+                                                                                                     _bulletSpeed(bulletSpeed),
+                                                                                                     _frameCounter(0.0f),
+                                                                                                     _fireEffect(fireEffect)
     {
     }
 
@@ -37,6 +39,8 @@ namespace TKSZG
     {
         static std::mt19937 randomEngine(time(nullptr));
         std::uniform_real_distribution<float> randSpread(-_spread, _spread);
+
+        _fireEffect.play();
 
         for (int i = 0; i < _bulletsPerShot; i++)
         {
