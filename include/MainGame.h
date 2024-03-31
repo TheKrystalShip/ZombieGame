@@ -11,6 +11,8 @@
 #include <SpriteFont.h>
 #include <Window.h>
 #include <AudioEngine.h>
+#include <ParticleEngine2D.h>
+#include <ParticleBatch2D.h>
 
 #include <vector>
 
@@ -43,27 +45,39 @@ namespace TKSZG
         void processInput();
         void drawGame();
         void drawHud();
+        void addBlood(const glm::vec2 &position, int numParticles);
 
         int _windowWidth;
         int _windowHeight;
 
         Toaster::Window _window;
+
         Toaster::GLSLProgram _textureProgram;
         Toaster::InputManager _inputManager;
+
         Toaster::Camera2D _camera;
         Toaster::Camera2D _hudCamera;
+
         Toaster::SpriteBatch _agentSpriteBatch;
         Toaster::SpriteBatch _hudSpriteBatch;
         Toaster::SpriteFont *_spriteFont;
         Toaster::AudioEngine _audioEngine;
+
+        Toaster::ParticleEngine2D _particleEngine;
+        Toaster::ParticleBatch2D *_bloodParticleBatch;
+
         std::vector<Level *> _levels;
+        int _currentLevel;
+
         Player *_player;
+
         std::vector<Human *> _humans;
         std::vector<Zombie *> _zombies;
         std::vector<Bullet> _bullets;
+
         GAME_STATE _gameState;
+
         float _fps;
-        int _currentLevel;
 
         int _humansKilled;
         int _zombiesKilled;

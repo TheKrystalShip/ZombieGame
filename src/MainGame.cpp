@@ -5,9 +5,12 @@
 #include "Zombie.h"
 
 #include <Errors.h>
+#include <ResourceManager.h>
 #include <Timing.h>
 #include <Toaster.h>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <GLM/gtx/rotate_vector.hpp>
 #include <SDL2/SDL.h>
 
 #include <ctime>
@@ -22,10 +25,10 @@ namespace TKSZG
 
     MainGame::MainGame() : _windowWidth(1920),
                            _windowHeight(1080),
+                           _currentLevel(0),
                            _player(nullptr),
                            _gameState(GAME_STATE::PLAY),
                            _fps(60.0f),
-                           _currentLevel(0),
                            _humansKilled(0),
                            _zombiesKilled(0)
     {
@@ -74,6 +77,12 @@ namespace TKSZG
         _camera.init(_windowWidth, _windowHeight);
         _hudCamera.init(_windowWidth, _windowHeight);
         _hudCamera.setPosition(glm::vec2(_windowWidth / 2.0f, _windowHeight / 2.0f));
+
+        // Particles
+        _bloodParticleBatch = new Toaster::ParticleBatch2D;
+        _bloodParticleBatch->init(1000, 0.05f, Toaster::ResourceManager::getTexture("assets/textures/particle.png"));
+
+        _particleEngine.addParticleBatch(_bloodParticleBatch);
     }
 
     void MainGame::initLevel()
@@ -162,6 +171,7 @@ namespace TKSZG
                 float deltaTime = std::min(totalDeltaTime, MAX_DELTATIME);
                 updateAgents(deltaTime);
                 updateBullets(deltaTime);
+                _particleEngine.update(deltaTime);
 
                 totalDeltaTime -= deltaTime;
                 i++;
@@ -244,7 +254,6 @@ namespace TKSZG
 
         bool wasBulletRemoved;
 
-        // Agent collision
         for (size_t i = 0; i < _bullets.size(); i++)
         {
             wasBulletRemoved = false;
@@ -253,6 +262,8 @@ namespace TKSZG
             {
                 if (_bullets[i].collideWithAgent(_zombies[j]))
                 {
+                    addBlood(_bullets[i].getPosition(), 5);
+
                     // Damage zombie, check if dead
                     if (_zombies[j]->applyDamage(_bullets[i].getDamage()))
                     {
@@ -285,6 +296,8 @@ namespace TKSZG
                 {
                     if (_bullets[i].collideWithAgent(_humans[j]))
                     {
+                        addBlood(_bullets[i].getPosition(), 5);
+
                         // Damage human, check if dead
                         if (_humans[j]->applyDamage(_bullets[i].getDamage()))
                         {
@@ -414,6 +427,8 @@ namespace TKSZG
 
         _agentSpriteBatch.renderBatch();
 
+        _particleEngine.draw(&_agentSpriteBatch);
+
         drawHud();
 
         _textureProgram.unbind();
@@ -441,5 +456,20 @@ namespace TKSZG
 
         _hudSpriteBatch.end();
         _hudSpriteBatch.renderBatch();
+    }
+
+    void MainGame::addBlood(const glm::vec2 &position, int numParticles)
+    {
+        // For adding random rotation to particles
+        static std::mt19937 randomEngine;
+        static std::uniform_real_distribution<float> randomAngle(0.0f, 360.0f);
+
+        glm::vec2 velocity(2.0f, 0.0f);
+        Toaster::ColorRGBA8 color(255, 0, 0);
+
+        for (int i = 0; i < numParticles; i++)
+        {
+            _bloodParticleBatch->addParticle(position, glm::rotate(velocity, randomAngle(randomEngine)), color, 25.0f);
+        }
     }
 }
