@@ -1,6 +1,8 @@
 #include "Zombie.h"
 #include "Human.h"
 
+#include <ResourceManager.h>
+
 namespace TKSZG
 {
     Zombie::Zombie()
@@ -17,10 +19,8 @@ namespace TKSZG
 
         _speed = speed;
         _position = position;
-        _color.r = 0;
-        _color.g = 160;
-        _color.b = 0;
-        _color.a = 255;
+        _color = Toaster::ColorRGBA8(255, 255, 255);
+        _textureId = Toaster::ResourceManager::getTexture("assets/textures/zombie.png").id;
     }
 
     void Zombie::update(const std::vector<std::string> &levelData,

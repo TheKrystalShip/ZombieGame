@@ -127,13 +127,11 @@ namespace TKSZG
 
     void Agent::draw(Toaster::SpriteBatch &spriteBatch)
     {
-        static int textureId = Toaster::ResourceManager::getTexture("assets/textures/circle.png").id;
-
         glm::vec4 destRect(_position.x, _position.y, AGENT_WIDTH, AGENT_WIDTH);
         spriteBatch.draw(
             destRect,
             {0.0f, 0.0f, 1.0f, 1.0f},
-            textureId,
+            _textureId,
             1.0f,
             _color);
     }

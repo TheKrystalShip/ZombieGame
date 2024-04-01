@@ -4,6 +4,7 @@
 
 #include <InputManager.h>
 #include <Camera2D.h>
+#include <ResourceManager.h>
 
 #include <SDL2/SDL.h>
 #include <GLM/glm.hpp>
@@ -25,10 +26,11 @@ namespace TKSZG
         _health = 150.0f;
         _speed = speed;
         _position = position;
-        _color = Toaster::ColorRGBA8(0, 128, 255);
+        _color = Toaster::ColorRGBA8(255, 255, 255);
         _inputManager = inputManager;
         _camera = camera;
         _bullets = bullets;
+        _textureId = Toaster::ResourceManager::getTexture("assets/textures/player.png").id;
     }
 
     void Player::addGun(Gun *gun)

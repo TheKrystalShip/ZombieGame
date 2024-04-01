@@ -1,5 +1,7 @@
 #include "Human.h"
 
+#include <ResourceManager.h>
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <GLM/gtx/rotate_vector.hpp>
 
@@ -21,15 +23,11 @@ namespace TKSZG
         static std::uniform_real_distribution<float> randomDir(-1.0f, 1.0f);
 
         _health = 20.0f;
-
-        _color.r = 200;
-        _color.g = 0;
-        _color.b = 200;
-        _color.a = 255;
-
+        _color = Toaster::ColorRGBA8(255, 255, 255);
         _speed = speed;
         _position = pos;
         _direction = glm::vec2(randomDir(randomEngine), randomDir(randomEngine));
+        _textureId = Toaster::ResourceManager::getTexture("assets/textures/human.png").id;
 
         // Make sure direction isn't 0
         if (_direction.length() == 0)

@@ -49,5 +49,6 @@ namespace TKSZG
         Toaster::ColorRGBA8 _color;
         float _speed;
         float _health;
+        GLuint _textureId;
     };
 }
