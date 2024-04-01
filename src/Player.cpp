@@ -65,18 +65,19 @@ namespace TKSZG
         if (_inputManager->isKeyDown(SDLK_3) && _guns.size() >= 2)
             _currentGunIndex = 2;
 
+        // Player rotates to where the mouse is pointing
+        glm::vec2 mouseCoords = _inputManager->getMouseCoords();
+        mouseCoords = _camera->convertScreenToWorld(mouseCoords);
+
+        glm::vec2 centerPosition = _position + glm::vec2(AGENT_RADIUS);
+        _direction = glm::normalize(mouseCoords - centerPosition);
+
         if (_currentGunIndex != -1)
         {
-            glm::vec2 mouseCoords = _inputManager->getMouseCoords();
-            mouseCoords = _camera->convertScreenToWorld(mouseCoords);
-
-            glm::vec2 centerPosition = _position + glm::vec2(AGENT_RADIUS);
-            glm::vec2 direction = glm::normalize(mouseCoords - centerPosition);
-
             _guns[_currentGunIndex]->update(
                 _inputManager->isKeyDown(SDL_BUTTON_LEFT),
                 centerPosition,
-                direction,
+                _direction,
                 *_bullets,
                 deltaTime);
         }

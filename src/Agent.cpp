@@ -1,8 +1,8 @@
 #include "Agent.h"
 #include "Level.h"
 
-#include <SpriteBatch.h>
 #include <ResourceManager.h>
+#include <SpriteBatch.h>
 
 #include <GLM/glm.hpp>
 
@@ -55,7 +55,8 @@ namespace TKSZG
 
         float collisionDepth = MIN_DISTANCE - distance;
 
-        if (collisionDepth > 0) {
+        if (collisionDepth > 0)
+        {
             glm::vec2 collisionDepthVec = glm::normalize(distVec) * collisionDepth;
 
             _position += collisionDepthVec / 2.0f;
@@ -76,9 +77,9 @@ namespace TKSZG
         // If we are outsize of the world just return
         if (cornerPos.x < 0 || cornerPos.x >= levelData[0].size() ||
             cornerPos.y < 0 || cornerPos.y >= levelData.size())
-            {
-                return;
-            }
+        {
+            return;
+        }
 
         // Check collision
         if (levelData[cornerPos.y][cornerPos.x] != '.')
@@ -128,12 +129,7 @@ namespace TKSZG
     void Agent::draw(Toaster::SpriteBatch &spriteBatch)
     {
         glm::vec4 destRect(_position.x, _position.y, AGENT_WIDTH, AGENT_WIDTH);
-        spriteBatch.draw(
-            destRect,
-            {0.0f, 0.0f, 1.0f, 1.0f},
-            _textureId,
-            1.0f,
-            _color);
+        spriteBatch.draw(destRect, {0.0f, 0.0f, 1.0f, 1.0f}, _textureId, 1.0f, _color, _direction);
     }
 
     bool Agent::applyDamage(float damage)

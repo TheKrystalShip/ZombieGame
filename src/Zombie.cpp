@@ -32,8 +32,8 @@ namespace TKSZG
 
         if (closesHuman != nullptr)
         {
-            glm::vec2 direction = glm::normalize(closesHuman->getPosition() - _position);
-            _position += direction * _speed * deltaTime;
+            _direction = glm::normalize(closesHuman->getPosition() - _position);
+            _position += _direction * _speed * deltaTime;
         }
 
         collideWithLevel(levelData);
