@@ -32,6 +32,10 @@ target_link_libraries(zombie toaster ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${GLE
 
 install(TARGETS zombie RUNTIME DESTINATION bin)
 
+add_custom_command(TARGET zombie POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
+)
+
 include(CTest)
 enable_testing()
 
