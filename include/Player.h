@@ -2,8 +2,8 @@
 
 #include "Human.h"
 
-#include <Camera2D.h>
-#include <InputManager.h>
+#include <Toaster/Camera2D.h>
+#include <Toaster/InputManager.h>
 
 namespace TKSZG
 {

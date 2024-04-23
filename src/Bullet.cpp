@@ -4,8 +4,8 @@
 #include "Agent.h"
 #include "Level.h"
 
-#include <SpriteBatch.h>
-#include <ResourceManager.h>
+#include <Toaster/SpriteBatch.h>
+#include <Toaster/ResourceManager.h>
 
 #include <GLM/glm.hpp>
 

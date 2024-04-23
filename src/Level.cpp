@@ -1,8 +1,8 @@
 #include "Level.h"
 
-#include <Errors.h>
-#include <SpriteBatch.h>
-#include <ResourceManager.h>
+#include <Toaster/Errors.h>
+#include <Toaster/SpriteBatch.h>
+#include <Toaster/ResourceManager.h>
 
 #include <fstream>
 #include <iostream>

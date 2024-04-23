@@ -2,9 +2,9 @@
 #include "Gun.h"
 #include "Bullet.h"
 
-#include <InputManager.h>
-#include <Camera2D.h>
-#include <ResourceManager.h>
+#include <Toaster/InputManager.h>
+#include <Toaster/Camera2D.h>
+#include <Toaster/ResourceManager.h>
 
 #include <SDL2/SDL.h>
 #include <GLM/glm.hpp>

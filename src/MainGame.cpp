@@ -4,10 +4,10 @@
 #include "Player.h"
 #include "Zombie.h"
 
-#include <Errors.h>
-#include <ResourceManager.h>
-#include <Timing.h>
-#include <Toaster.h>
+#include <Toaster/Errors.h>
+#include <Toaster/ResourceManager.h>
+#include <Toaster/Timing.h>
+#include <Toaster/Toaster.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <GLM/gtx/rotate_vector.hpp>

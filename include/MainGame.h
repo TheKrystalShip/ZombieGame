@@ -4,15 +4,15 @@
 #include "Level.h"
 #include "Player.h"
 
-#include <Camera2D.h>
-#include <GLSLProgram.h>
-#include <InputManager.h>
-#include <SpriteBatch.h>
-#include <SpriteFont.h>
-#include <Window.h>
-#include <AudioEngine.h>
-#include <ParticleEngine2D.h>
-#include <ParticleBatch2D.h>
+#include <Toaster/Camera2D.h>
+#include <Toaster/GLSLProgram.h>
+#include <Toaster/InputManager.h>
+#include <Toaster/SpriteBatch.h>
+#include <Toaster/SpriteFont.h>
+#include <Toaster/Window.h>
+#include <Toaster/AudioEngine.h>
+#include <Toaster/ParticleEngine2D.h>
+#include <Toaster/ParticleBatch2D.h>
 
 #include <vector>
 
